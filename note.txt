@@ -1,0 +1,8 @@
+Theano for deep learning:
+
+1. Symbolic computation for tensors. (vector, matrix, ...)
+2. Sub-models of tensor operations relevant to DL.
+3. Highly expressive.
+4. Symbolic differentiation.
+5. Transparent GPU acceleration.
+6. Easily integrates with Python ecosystem.
