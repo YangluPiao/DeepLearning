@@ -1,0 +1,6 @@
+import numpy as np
+
+a = [1,2,1,2,4,24,124,5,54,3153,4]
+b=np.argsort(a)
+print(b)
+print(len(a),len(b))
