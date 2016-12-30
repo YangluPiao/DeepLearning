@@ -11,57 +11,65 @@ from glob import glob
 from PIL import Image
 from numpy import array
 
+from numpy import *
+import sys
 import theano
 import theano.tensor as T
 rng=np.random
 
-def reconstructed_image(D,c,num_coeffs,X_mean,im_num):
-    n = int(256)
-    c_im = c[:num_coeffs, im_num* (im_num + 1)]
-    D_im = D[:, :num_coeffs]
-    co = np.dot(D_im, c_im)
+theano.config.floatX = 'float32'
+theano.config.exception_verbosity='high'
+sys.setrecursionlimit(15000)
 
-    X_tmp = []
-    for i in range(0, 1):
-        tp = co[i]
-        tp = tp + X_mean
-        tp = np.asarray(tp)
-        X_tmp.append(tp)
-    X_tmp = np.asarray(X_tmp)
-
-    row = []
-    big_row = []
-    matrix = []
-
-    for i in range(0, 1):
-        for k in range(0, n ** 2, n):
-            for j in range(0, 1):
-                row.extend(X_tmp[j + i][k:k + n])
-            row = np.asarray(row)
-            big_row.append(row)
-            row = []
-        if i == 0:
-            matrix = big_row
-            big_row = []
-        else:
-            big_row = np.asarray(big_row)
-            matrix = np.vstack([matrix, big_row])
-            big_row = []
-    matrix = np.asarray(matrix)
-    X_recon_img = Image.fromarray(matrix)
-    return X_recon_img
-
-def plot_reconstructions(D,c,num_coeff_array,X_mean,im_num):
+def plot(c, D, X_mn, ax):
+    '''
+    Plots a reconstruction of a particular image using D as the basis matrix and c as
+    the coefficient vector
+    Parameters
+    -------------------
+        c: np.ndarray
+            a l x 1 vector  representing the coefficients of the image.
+            l represents the dimension of the PCA space used for reconstruction
+        D: np.ndarray
+            an N x l matrix representing first l basis vectors of the PCA space
+            N is the dimension of the original space (number of pixels in the image)
+        X_mn: basis vectors represent the divergence from the mean so this
+            matrix should be added to the reconstructed image
+        ax: the axis on which the image will be plotted
+    '''
+    H, W = X_mn.shape
+    re_im = np.dot(D, c).reshape(H, W) + X_mn
+    plt.imshow(re_im, cmap=plt.gray())
+def plot_mul(c, D, im_num, X_mn, num_coeffs):
+    '''
+    Plots nine PCA reconstructions of a particular image using number
+    of components specified by num_coeffs
+    Parameters
+    ---------------
+    c: np.ndarray
+        a n x m matrix  representing the coefficients of all the images
+        n represents the maximum dimension of the PCA space.
+        m represents the number of images
+    D: np.ndarray
+        an N x n matrix representing the basis vectors of the PCA space
+        N is the dimension of the original space (number of pixels in the image)
+    im_num: Integer
+        index of the image to visualize
+    X_mn: np.ndarray
+        a matrix representing the mean image
+    '''
     f, axarr = plt.subplots(3, 3)
+
     for i in range(3):
         for j in range(3):
-            plt.axes(axarr[i, j])
-            plt.imshow(reconstructed_image(D, c, num_coeff_array[i * 3 + j], X_mean, im_num))
+            nc = num_coeffs[i*3+j]
+            cij = c[:nc, im_num]
+            Dij = D[:, :nc]
+            plt.subplot(3, 3, i * 3 + j + 1)
+            plot(cij, Dij, X_mn, axarr[i, j])
 
-    f.savefig('./output2/2_{0}_im{1}.png'.format(1, im_num))
+    f.savefig('./output2/2_im{0}.png'.format(im_num))
     plt.close(f)
-    
-    
     
 def plot_top_16(D, sz, imname):
     out=D[:,:16]
@@ -82,6 +90,7 @@ def plot_top_16(D, sz, imname):
     plt.close(f)
 
 def main():
+    print("Loading data...")
     pic=[]
     for infile in sorted(glob('./Fei_256/*.jpg')):
         im=Image.open(infile)
@@ -94,6 +103,8 @@ def main():
     Ims = Ims.astype(np.float32)
     X_mn = np.mean(Ims, 0)
     X = Ims - np.repeat(X_mn.reshape(1, -1), Ims.shape[0], 0)
+    print("Building model...")
+
 
     H = 256
     W = 256
@@ -113,12 +124,11 @@ def main():
         diff_c = 2
         diff_p = 0
         t = 0
-        acc = 0  # Needs to be outside as A_i is before the while loop, Theano just changes d_i everytime
+        acc = 0  
 
         y = np.float32(np.random.rand(H * W))
         D[:, i] = (y / np.linalg.norm(y))
 
-        # Construct Theano function
         if i > 0:
             for j in range(0, i):
                 acc += L[j] * T.pow(T.dot(d_i.T, d[:, j]), 2)
@@ -129,25 +139,23 @@ def main():
 
         while (t == 0) or (t <= TS and abs(diff_c - diff_p) >= Stop):
 
-            # Theano
             diff_p = diff_c
             y = D[:, i] - 0.01 * f(X, D[:, i], Lambda, D)
             D[:, i] = y / np.linalg.norm(y)
-            # print D[:, i].shape
+
             diff_c = np.dot(np.dot(X, D[:, i]).T, np.dot(X, D[:, i]))
             t += 1
-            # if abs(diff_c - diff_p) < 500:
-            #     print diff_c, diff_p, t
             Lambda[i] = diff_c
 
         print(Lambda[i])
 
     c = np.dot(D.T, X.T)
-
+    
     for i in range(0, 200, 10):
-        plot_reconstructions(D, c,[1, 2, 4, 6, 8, 10, 12, 14, 16], X_mn.reshape((256, 256)),i)
-
+        plot_mul(c, D, i, X_mn.reshape((256, 256)),
+                 [1, 2, 4, 6, 8, 10, 12, 14, 16])
     plot_top_16(D, 256, 'output2/top16_256.png')
+    
 if __name__ == '__main__':
     main()
     
