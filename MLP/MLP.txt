@@ -1,0 +1,28 @@
+... building the model
+... training
+Number of hidden layers is :2. 
+Number of neurons is :500. 
+epoch 10, minibatch 3296/3296, validation error 31.202186 %
+     epoch 10, minibatch 3296/3296, test error of best model 32.982321 %
+epoch 20, minibatch 3296/3296, validation error 24.030055 %
+     epoch 20, minibatch 3296/3296, test error of best model 24.938509 %
+epoch 30, minibatch 3296/3296, validation error 21.079235 %
+     epoch 30, minibatch 3296/3296, test error of best model 22.394312 %
+epoch 40, minibatch 3296/3296, validation error 19.644809 %
+     epoch 40, minibatch 3296/3296, test error of best model 20.960799 %
+epoch 50, minibatch 3296/3296, validation error 18.128415 %
+     epoch 50, minibatch 3296/3296, test error of best model 19.646426 %
+epoch 60, minibatch 3296/3296, validation error 16.830601 %
+     epoch 60, minibatch 3296/3296, test error of best model 18.935434 %
+epoch 70, minibatch 3296/3296, validation error 16.721311 %
+epoch 80, minibatch 3296/3296, validation error 16.653005 %
+epoch 90, minibatch 3296/3296, validation error 16.666667 %
+epoch 100, minibatch 3296/3296, validation error 16.816940 %
+epoch 110, minibatch 3296/3296, validation error 16.953552 %
+epoch 120, minibatch 3296/3296, validation error 16.953552 %
+epoch 130, minibatch 3296/3296, validation error 16.912568 %
+epoch 140, minibatch 3296/3296, validation error 17.062842 %
+epoch 150, minibatch 3296/3296, validation error 17.035519 %
+epoch 160, minibatch 3296/3296, validation error 17.035519 %
+Optimization complete. Best validation score of 16.530055 % obtained at iteration 276864, with test performance 18.470407 %
+The code for file MLP.py ran for 109.79m

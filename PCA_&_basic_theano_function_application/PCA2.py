@@ -118,8 +118,9 @@ def main():
     d_i = T.vector("d_i")
     L = T.vector("L")
     d = T.matrix("d")
-    acc = T.scalar("acc")
 
+    
+    print("Training...")
     for i in range(0, 16):
         diff_c = 2
         diff_p = 0
@@ -134,7 +135,9 @@ def main():
                 acc += L[j] * T.pow(T.dot(d_i.T, d[:, j]), 2)
 
         Opt = - T.dot(T.dot(X_Theano, d_i).T, T.dot(X_Theano, d_i)) + acc
-        gd = T.grad(Opt, d_i)
+        gd = T.grad(Opt, d_i)#Output of theano function.
+        
+        #Define a theano function to compute gradient.
         f = theano.function([X_Theano, d_i, L, d], gd, on_unused_input='ignore')
 
         while (t == 0) or (t <= TS and abs(diff_c - diff_p) >= Stop):
@@ -146,8 +149,7 @@ def main():
             diff_c = np.dot(np.dot(X, D[:, i]).T, np.dot(X, D[:, i]))
             t += 1
             Lambda[i] = diff_c
-
-        print(Lambda[i])
+        print(i)
 
     c = np.dot(D.T, X.T)
     
