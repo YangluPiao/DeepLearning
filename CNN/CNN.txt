@@ -1,0 +1,27 @@
+...downloading data
+... building the model
+... training
+training @ iter = 0
+training @ iter = 1000
+epoch 1, minibatch 2000/2000, validation error 60.340000 %
+     epoch 1, minibatch 2000/2000, test error of best model 59.090000 %
+training @ iter = 2000
+training @ iter = 3000
+epoch 2, minibatch 2000/2000, validation error 52.910000 %
+     epoch 2, minibatch 2000/2000, test error of best model 52.390000 %
+training @ iter = 4000
+training @ iter = 5000
+epoch 3, minibatch 2000/2000, validation error 50.880000 %
+     epoch 3, minibatch 2000/2000, test error of best model 50.520000 %
+training @ iter = 6000
+training @ iter = 7000
+epoch 4, minibatch 2000/2000, validation error 49.350000 %
+     epoch 4, minibatch 2000/2000, test error of best model 49.100000 %
+training @ iter = 8000
+training @ iter = 9000
+epoch 5, minibatch 2000/2000, validation error 48.640000 %
+     epoch 5, minibatch 2000/2000, test error of best model 48.330000 %
+training @ iter = 10000
+Optimization complete.
+Best validation error of 48.640000 % obtained at iteration 10000, with test performance 48.330000 %
+The training process for function MY_CNN ran for 10.48m
