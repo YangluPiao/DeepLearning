@@ -13,4 +13,4 @@ multiply=theano.function(inputs=[a,b],outputs=y)
 
 #Use the function on numeric data.
 print (multiply(3,2)) #6
-print (multiply(4,5)) #20
+print (multiply(4,6)) #24
