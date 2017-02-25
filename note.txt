@@ -5,4 +5,4 @@ Theano for deep learning:
 3. Highly expressive.
 4. Symbolic differentiation.
 5. Transparent GPU acceleration.
-6. Easily integrates with Python ecosystem.
+6. Easily integrates with Python ecosystem
