@@ -1,0 +1,107 @@
+... loading the dataset
+... building the model
+... training
+epoch:->0
+cost(mse): 0.491000
+NEW BEST: epoch 0, valid error 51.400000 %, best test error 49.000000 %
+epoch:->1
+cost(mse): 0.472000
+NEW BEST: epoch 1, valid error 49.800000 %, best test error 52.000000 %
+epoch:->2
+cost(mse): 0.543000
+
+epoch:->3
+cost(mse): 0.523000
+
+epoch:->4
+cost(mse): 0.523000
+NEW BEST: epoch 4, valid error 49.400000 %, best test error 54.000000 %
+epoch:->5
+cost(mse): 0.467000
+
+epoch:->6
+cost(mse): 0.458000
+
+epoch:->7
+cost(mse): 0.520000
+
+epoch:->8
+cost(mse): 0.000000
+NEW BEST: epoch 8, valid error 0.000000 %, best test error 0.000000 %
+epoch:->9
+cost(mse): 0.000000
+
+epoch:->10
+cost(mse): 0.000000
+
+epoch:->11
+cost(mse): 0.000000
+
+epoch:->12
+cost(mse): 0.000000
+
+epoch:->13
+cost(mse): 0.000000
+
+epoch:->14
+cost(mse): 0.000000
+
+epoch:->15
+cost(mse): 0.000000
+
+epoch:->16
+cost(mse): 0.000000
+
+epoch:->17
+cost(mse): 0.000000
+
+epoch:->18
+cost(mse): 0.000000
+
+epoch:->19
+cost(mse): 0.000000
+
+epoch:->20
+cost(mse): 0.000000
+
+epoch:->21
+cost(mse): 0.000000
+
+epoch:->22
+cost(mse): 0.000000
+
+epoch:->23
+cost(mse): 0.000000
+
+epoch:->24
+cost(mse): 0.000000
+
+epoch:->25
+cost(mse): 0.000000
+
+epoch:->26
+cost(mse): 0.000000
+
+epoch:->27
+cost(mse): 0.000000
+
+epoch:->28
+cost(mse): 0.000000
+
+epoch:->29
+cost(mse): 0.000000
+
+epoch:->30
+cost(mse): 0.000000
+
+epoch:->31
+cost(mse): 0.000000
+
+epoch:->32
+cost(mse): 0.000000
+
+epoch:->33
+cost(mse): 0.000000
+
+BEST RESULT: epoch 8, valid error 0.0000 %, best test error 0.0000 %
+ ran for 2.83m
